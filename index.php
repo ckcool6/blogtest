@@ -13,3 +13,5 @@ require_once(ROOT_PATH . "Frame" . DS . "Frame.class.php");
 
 //method init
 Frame::run();
+
+//test
