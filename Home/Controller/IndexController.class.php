@@ -8,8 +8,8 @@ final class IndexController
 {
     public function index()
     {
-        $modelObj = new IndexModel();
 
+        $modelObj = IndexModel::getInstance();
         //get data
         $arr = $modelObj->fetchAll();
 
