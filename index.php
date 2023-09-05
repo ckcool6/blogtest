@@ -1,5 +1,6 @@
 <?php
 use Frame\Frame;
+use Frame\Vendor;
 
 //目录分割符
 const DS = DIRECTORY_SEPARATOR;
@@ -14,4 +15,4 @@ require_once(ROOT_PATH . "Frame" . DS . "Frame.class.php");
 //method init
 Frame::run();
 
-//test
+//debug

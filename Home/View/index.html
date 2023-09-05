@@ -7,6 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-<h2>运行正常</h2>
+<h2>Test data</h2>
+<ul>
+    {{foreach from=$arr item=user}}
+    <li>{{$user['name']}}---{{$user['tel']}}</li>
+    {{/foreach}}
+</ul>
 </body>
 </html>

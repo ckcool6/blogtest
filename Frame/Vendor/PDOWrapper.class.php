@@ -8,13 +8,13 @@ use PDOException;
 
 final class PDOWrapper
 {
-    private mixed $db_type;
-    private mixed $db_host;
-    private mixed $db_port;
-    private mixed $db_user;
-    private mixed $db_pass;
-    private mixed $db_name;
-    private mixed $charset;
+    private  $db_type;
+    private  $db_host;
+    private  $db_port;
+    private  $db_user;
+    private  $db_pass;
+    private  $db_name;
+    private  $charset;
     private $pdo = null;
 
 
@@ -33,7 +33,7 @@ final class PDOWrapper
 
     }
 
-    private function createPDO(): void
+    private function createPDO()
     {
 
         try {
@@ -54,7 +54,7 @@ final class PDOWrapper
         }
     }
 
-    private function setErrorMode(): void
+    private function setErrorMode()
     {
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }

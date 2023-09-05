@@ -2,9 +2,10 @@
 
 namespace Home\Controller;
 
+use Frame\Libs\BaseController;
 use Home\Model\IndexModel;
 
-final class IndexController
+final class IndexController extends BaseController
 {
     public function index()
     {
@@ -13,11 +14,8 @@ final class IndexController
         //get data
         $arr = $modelObj->fetchAll();
 
-        echo "<pre>";
-        var_dump($arr);
-        echo "</pre>";
-
         //show view html
-        //include VIEW_PATH . "index.html";
+        $this->smarty->assign("arr", $arr);
+        $this->smarty->display("index.html");
     }
 }
