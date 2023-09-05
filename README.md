@@ -6,3 +6,5 @@
 
 ### day2
 
+封装PDO,引入smarty
+

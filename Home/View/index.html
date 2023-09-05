@@ -1,17 +1,33 @@
+<!DOCTYPE html>
 <html lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <title>学生信息管理中心</title>
 </head>
 <body>
-<h2>Test data</h2>
-<ul>
+<div style="text-align:center;padding-bottom: 10px;">
+    <h2>学生信息管理中心(前台)</h2>
+</div>
+<table width="600" border="1" align="center" rules="all" cellpadding="5">
+    <tr bgcolor='#ccc'>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>操作选项</th>
+    </tr>
+
     {{foreach from=$arr item=user}}
-    <li>{{$user['name']}}---{{$user['tel']}}</li>
+
+    <tr align="center">
+        <td>{{$user.id}}</td>
+        <td>{{$user.name}}</td>
+        <td>
+            <a href="javascript:void(0)">修改</a> |
+            <a href="javascript:void(0)">删除</a>
+        </td>
+    </tr>
+
     {{/foreach}}
-</ul>
+
+</table>
 </body>
 </html>
