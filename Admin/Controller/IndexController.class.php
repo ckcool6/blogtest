@@ -2,22 +2,32 @@
 
 namespace Admin\Controller;
 
-use Admin\Model\IndexModel;
+use Frame\Libs\BaseController;
 
-final class IndexController
+class IndexController extends BaseController
 {
     public function index()
     {
-        $modelObj = new IndexModel();
+        $this->smarty->display("./Index/index.html");
+    }
 
-        //get data
-        $arr = $modelObj->fetchAll();
+    public function top()
+    {
+        $this->smarty->display("./Index/top.html");
+    }
 
-/*        echo "<pre>";
-        var_dump($arr);
-        echo "</pre>";*/
+    public function left()
+    {
+        $this->smarty->display("./Index/left.html");
+    }
 
-        //show view html
-        include VIEW_PATH . "index.html";
+    public function center()
+    {
+        $this->smarty->display("./Index/center.html");
+    }
+
+    public function main()
+    {
+        $this->smarty->display("./Index/main.html");
     }
 }
