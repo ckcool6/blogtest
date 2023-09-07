@@ -51,7 +51,7 @@
             <{if $user.role}><font color='red'>超级管理员</font><{else}>普通管理员<{/if}>
         </td>
         <td align="center"><{$user.last_login_ip}></td>
-        <td align="center"><{$user.addate|date_format:'%Y-%m-%d %H:%M:%S'}></td>
+        <td align="center"><{date("Y/m/d  H:i:s",$user.addate)}></td>
         <td align="center"><{$user.login_times}></td>
         <td align="center">
             <{if $user.status}>正常<{else}><font color='red'>关闭</font><{/if}>
