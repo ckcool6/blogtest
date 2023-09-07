@@ -22,4 +22,11 @@ abstract class BaseController
 
         $this->smarty = $smarty;
     }
+
+    protected function jump($message, $url = '?', $time = 3)
+    {
+        echo "<h2>{$message}</h2>";
+        header("refresh:{$time};url={$url}");
+        die();
+    }
 }

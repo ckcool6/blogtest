@@ -17,4 +17,15 @@ class UserController extends BaseController
         $this->smarty->display("./User/index.html");
 
     }
+
+    public function delete()
+    {
+        $id = $_GET['id'];
+        if (UserModel::getInstance()->delete($id)) {
+            $this->jump("id={$id}的记录删除成功", "?c=User");
+        } else {
+            $this->jump("id={$id}的记录删除失败", "?c=User");
+        }
+    }
+
 }
