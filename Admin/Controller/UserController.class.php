@@ -62,4 +62,35 @@ class UserController extends BaseController
         }
     }
 
+    public function edit()
+    {
+        $id = $_GET['id'];
+        $user = UserModel::getInstance()->fetchOne($id);
+        $this->smarty->assign("user", $user);
+        $this->smarty->display("./User/edit.html");
+    }
+
+    public function update()
+    {
+        $id = $_POST['id'];
+        $data['name'] = $_POST['name'];
+        $data['tel'] = $_POST['tel'];
+        $data['status'] = $_POST['status'];
+        $data['role'] = $_POST['role'];
+
+        //password是否为空
+        if (!empty($_POST['password'] && !empty($_POST['confirmpwd']))) {
+            //两次输入是否一致
+            if ($_POST['password'] == $_POST['confirmpwd']) {
+                $data['password'] = md5($_POST['password']);
+            }
+        }
+
+        if (UserModel::getInstance()->update($data, $id)) {
+            $this->jump("id={$id}记录更新成功", "?c=User");
+        } else {
+            $this->jump("id={$id}记录更新失败", "?c=User");
+        }
+    }
+
 }
