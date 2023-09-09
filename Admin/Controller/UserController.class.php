@@ -93,4 +93,9 @@ class UserController extends BaseController
         }
     }
 
+    public function login()
+    {
+        $this->smarty->display("./User/login.html");
+    }
+
 }
