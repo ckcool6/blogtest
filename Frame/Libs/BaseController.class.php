@@ -10,6 +10,7 @@ abstract class BaseController
 
     public function __construct()
     {
+
         $smarty = new Smarty();
 
         //设置smarty模板语法
@@ -25,8 +26,17 @@ abstract class BaseController
 
     protected function jump($message, $url = '?', $time = 3)
     {
-        echo "<h2>{$message}</h2>";
+
+        echo "<h2 style='color: brown'>{$message}</h2>";
         header("refresh:{$time};url={$url}");
         die();
     }
+
+    protected function denyAccess()
+    {
+        if (empty($_SESSION['username'])) {
+            $this->jump("请先登录", "?c=User&a=login");
+        }
+    }
+
 }

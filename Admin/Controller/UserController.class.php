@@ -4,11 +4,15 @@ namespace Admin\Controller;
 
 use Admin\Model\UserModel;
 use Frame\Libs\BaseController;
+use Frame\Vendor\Captcha;
 
 class UserController extends BaseController
 {
     public function index()
     {
+        //权限验证
+        $this->denyAccess();
+
         $modelObj = UserModel::getInstance();
         $users = $modelObj->fetchAll();
 
@@ -20,6 +24,8 @@ class UserController extends BaseController
 
     public function delete()
     {
+        $this->denyAccess();
+
         $id = $_GET['id'];
         if (UserModel::getInstance()->delete($id)) {
             $this->jump("id={$id}的记录删除成功", "?c=User");
@@ -30,12 +36,16 @@ class UserController extends BaseController
 
     public function add()
     {
+        $this->denyAccess();
+
         $this->smarty->display("./User/add.html");
     }
 
     //register
     public function insert()
     {
+        $this->denyAccess();
+
         //获取表单数据
         $data['username'] = $_POST['username'];
         $data['password'] = md5($_POST['password']);
@@ -64,6 +74,8 @@ class UserController extends BaseController
 
     public function edit()
     {
+        $this->denyAccess();
+
         $id = $_GET['id'];
         $user = UserModel::getInstance()->fetchOne("id={$id}");
         $this->smarty->assign("user", $user);
@@ -72,6 +84,8 @@ class UserController extends BaseController
 
     public function update()
     {
+        $this->denyAccess();
+
         $id = $_POST['id'];
         $data['name'] = $_POST['name'];
         $data['tel'] = $_POST['tel'];
@@ -105,11 +119,16 @@ class UserController extends BaseController
         $verify = $_POST['verify'];
 
         //判断验证码与服务器是否一致
+        if ($verify != $_SESSION['captcha']) {
+            $this->jump("验证码错误", "?c=User&a=login");
+        }
+
         //判断用户名密码与数据库是否一致
         $user = UserModel::getInstance()->fetchOne("username='$username' and password='$password'");
         if (!$user) {
             $this->jump("用户名或密码不正确", "?c=User&a=login");
         }
+
         //判断是`停用`还是`正常`
         if (empty($user['status'])) {
             $this->jump("账号已停用", "?c=User&a=login");
@@ -130,6 +149,15 @@ class UserController extends BaseController
 
         //跳转后台首页
         header("location:./admin.php");
+    }
+
+    //验证码
+    public function captcha()
+    {
+        $captcha = new Captcha();
+        //将验证码保存到session
+        $_SESSION['captcha'] = $captcha->getCode();
+
     }
 
 }
