@@ -65,7 +65,7 @@ class UserController extends BaseController
     public function edit()
     {
         $id = $_GET['id'];
-        $user = UserModel::getInstance()->fetchOne($id);
+        $user = UserModel::getInstance()->fetchOne("id={$id}");
         $this->smarty->assign("user", $user);
         $this->smarty->display("./User/edit.html");
     }
@@ -96,6 +96,40 @@ class UserController extends BaseController
     public function login()
     {
         $this->smarty->display("./User/login.html");
+    }
+
+    public function loginCheck()
+    {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $verify = $_POST['verify'];
+
+        //判断验证码与服务器是否一致
+        //判断用户名密码与数据库是否一致
+        $user = UserModel::getInstance()->fetchOne("username='$username' and password='$password'");
+        if (!$user) {
+            $this->jump("用户名或密码不正确", "?c=User&a=login");
+        }
+        //判断是`停用`还是`正常`
+        if (empty($user['status'])) {
+            $this->jump("账号已停用", "?c=User&a=login");
+        }
+
+        //更新last_login_ip,time,times字段
+        $date['last_login_ip'] = $_SERVER['REMOTE_ADDR'];
+        $date['last_login_time'] = time();
+        $date['login_times'] = $user['login_times'] + 1;
+
+        if (!UserModel::getInstance()->update($date, $user['id'])) {
+            $this->jump("用户资料更新失败", "?c=User&a=login");
+        }
+
+        //将用户的状态存入Session
+        $_SESSION['uid'] = $user['id'];
+        $_SESSION['username'] = $username;
+
+        //跳转后台首页
+        header("location:./admin.php");
     }
 
 }

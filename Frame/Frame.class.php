@@ -15,6 +15,8 @@ final class Frame
 
     private static function initConfig()
     {
+        //开启session
+        session_start();
         //添加一个名为config的全局数组变量
         $GLOBALS['config'] = require_once(APP_PATH . "Conf" . DS . "Config.php");
     }
