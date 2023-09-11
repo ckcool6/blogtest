@@ -27,3 +27,7 @@
 - 引入验证码
 - 验证码存到session里
 - 后台访问权限 判断username有没有在session里
+- 登录信息，退出登录
+- 友情链接crud
+
+### day6

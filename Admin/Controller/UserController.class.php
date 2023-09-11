@@ -160,4 +160,15 @@ class UserController extends BaseController
 
     }
 
+    public function logout()
+    {
+        //delete session date
+        unset($_SESSION['username']);
+        unset($_SESSION['uid']);
+
+        session_destroy();
+        setcookie(session_name(),false);
+
+        header("location:admin.php?c=User&a=login");
+    }
 }
