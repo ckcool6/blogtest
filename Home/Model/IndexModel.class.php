@@ -7,7 +7,7 @@ use Frame\Libs\Db;
 
 final class IndexModel extends BaseModel
 {
-    public function fetchAll()
+    public function fetchAll($orderby="id DESC")
     {
         $sql = "select * from user order by id desc";
 

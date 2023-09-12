@@ -29,10 +29,10 @@ abstract class BaseModel
     }
 
     //获取多行数据
-    public function fetchAll()
+    public function fetchAll($orderby = "id DESC")
     {
         //构建查询的SQL语句
-        $sql = "SELECT * FROM {$this->table} ORDER BY id DESC";
+        $sql = "SELECT * FROM {$this->table} ORDER BY {$orderby}";
         //执行SQL语句，返回二维数组
         return $this->pdo->fetchAll($sql);
     }
