@@ -38,4 +38,4 @@
 
 ### day7
 
-- 文章model //todo
+- 文章model left join 
