@@ -13,7 +13,7 @@ KindEditor.ready(function(K) {
 	editor = K.create('textarea[name="content"]', {
 		allowFileManager : true
 	});
-});
+}); //查找form中name=content的textarea标签，并替换成kindeditor编辑器
 </script>
 </head>
 
@@ -58,7 +58,7 @@ KindEditor.ready(function(K) {
 	</tr>
 	<tr class="tdbg">
 		<td height="30" align="right">内&nbsp;&nbsp;容：</td>
-		<td><textarea name="content" style="width:95%;height:300px;"></textarea></td>
+		<td><textarea name="content" style="width:95%;height:300px;"></textarea></td> <!--引入编辑器-->
 	</tr>
 	<tr class="tdbg">
 		<td height="30" align="right">&nbsp;</td>
