@@ -56,7 +56,7 @@
 		<{if $article.top}>[<font color="red">顶</font>]<{/if}>
 	</td>
 	<td><{$article.username}></td>
-	<td><{$article.addate|date_format:'%Y-%m-%d %H:%M:%S'}></td>
+	<td><{date("Y-m-d H:i:s",$article.addate)}></td>
 	<td>
 		<a href="?c=Article&a=edit&id=<{$article.id}>">修改</a> | 
 		<a href="javascript:void(0)" onClick="confirmDel(<{$article.id}>)">删除</a>
