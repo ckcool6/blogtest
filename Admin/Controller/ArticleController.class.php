@@ -5,17 +5,35 @@ namespace Admin\Controller;
 use Admin\Model\ArticleModel;
 use Admin\Model\CategoryModel;
 use Frame\Libs\BaseController;
+use Frame\Vendor\Pager;
 
 class ArticleController extends BaseController
 {
     public function index()
     {
         $categorys = CategoryModel::getInstance()->categoryList(CategoryModel::getInstance()->fetchAll("id ASC"));
-        $articles = ArticleModel::getInstance()->fetchAllWithJoin();
+
+        /**
+         * 构造page类参数
+         */
+        $pagesize = 5;
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $startrow = ($page - 1) * $pagesize;//开始行号
+        $records = ArticleModel::getInstance()->rowCount();
+        $params = array('c' => CONTROLLER, 'a' => ACTION); //附加参数
+
+        /**
+         * 创建分页对象
+         */
+        $pageObj = new Pager($records, $pagesize, $page, $params);
+        $pageStr = $pageObj->showPage();
+
+        $articles = ArticleModel::getInstance()->fetchAllWithJoin($startrow, $pagesize);
 
         $this->smarty->assign(array(
             'categorys' => $categorys,
             'articles' => $articles,
+            'pageStr' => $pageStr,
         ));
 
         $this->smarty->display("./Article/index.html");
@@ -48,4 +66,5 @@ class ArticleController extends BaseController
             $this->jump("文章添加失败！", "?c=Article");
         }
     }
+
 }
