@@ -14,13 +14,35 @@ class ArticleController extends BaseController
         $categorys = CategoryModel::getInstance()->categoryList(CategoryModel::getInstance()->fetchAll("id ASC"));
 
         /**
+         * 构造搜索条件
+         */
+        $where = "2>1"; //default value
+        if (!empty($_REQUEST['category_id'])) {
+            $where .= " AND article.category_id=" . $_REQUEST['category_id'];
+        }
+        if (!empty($_REQUEST['keyword'])) {
+            $where .= " AND title LIKE '%" . $_REQUEST['keyword'] . "%'";
+        }
+        echo "sql搜索语句：" . $where;
+
+        /**
          * 构造page类参数
          */
         $pagesize = 5;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $startrow = ($page - 1) * $pagesize;//开始行号
-        $records = ArticleModel::getInstance()->rowCount();
+        $startrow = ($page - 1) * $pagesize; //开始行号
+        $records = ArticleModel::getInstance()->rowCount($where);
         $params = array('c' => CONTROLLER, 'a' => ACTION); //附加参数
+
+        /**
+         * 搜索分页参数
+         */
+        if (!empty($_REQUEST['category_id'])) {
+            $params['category_id'] = $_REQUEST['category_id'];
+        }
+        if (!empty($_REQUEST['keyword'])) {
+            $params['keyword'] = $_REQUEST['keyword'];
+        }
 
         /**
          * 创建分页对象
@@ -28,7 +50,7 @@ class ArticleController extends BaseController
         $pageObj = new Pager($records, $pagesize, $page, $params);
         $pageStr = $pageObj->showPage();
 
-        $articles = ArticleModel::getInstance()->fetchAllWithJoin($startrow, $pagesize);
+        $articles = ArticleModel::getInstance()->fetchAllWithJoin($where, $startrow, $pagesize);
 
         $this->smarty->assign(array(
             'categorys' => $categorys,
