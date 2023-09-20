@@ -18,11 +18,12 @@ class ArticleModel extends BaseModel
         return $this->pdo->fetchAll($sql);
     }
 
-    public function fetchAllWithJoin($startrow, $pagesize)
+    public function fetchAllWithJoin($where, $startrow, $pagesize)
     {
         $sql = "select article.*, user.name, category.classname from {$this->table} ";
         $sql .= "left join user on article.user_id=user.id ";
         $sql .= "left join category on article.category_id=category.id ";
+        $sql .= "where {$where} ";
         $sql .= "order by article.id DESC ";
         $sql .= "limit {$startrow},{$pagesize}";
 
