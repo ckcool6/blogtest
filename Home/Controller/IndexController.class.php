@@ -2,6 +2,7 @@
 
 namespace Home\Controller;
 
+use Home\Model\ArticleModel;
 use Home\Model\CategoryModel;
 use Home\Model\LinksModel;
 use Frame\Libs\BaseController;
@@ -21,9 +22,15 @@ final class IndexController extends BaseController
          */
         $categorys = \Admin\Model\CategoryModel::getInstance()->categoryList(CategoryModel::getInstance()->fetchAllWithJoin());
 
+        /**
+         * 获取按月份归档
+         */
+        $months = ArticleModel::getInstance()->fetchAllWithCount();
+
         $this->smarty->assign(
             array('links' => $links,
                 'categorys' => $categorys,
+                'months' => $months,
             ));
         $this->smarty->display("./Index/index.html");
     }
