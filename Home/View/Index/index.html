@@ -31,7 +31,7 @@
 <div class="blogbg">
 	<div class="header">
 		<div class="title">
-			<h2>九里沟风景区的博客</h2>
+			<h2>博客演示</h2>
 			<p><a href="javascript:void(0)">http://www.2016.cn/index.php</a></p>
 		</div>
 		<div class="menu">
@@ -55,7 +55,7 @@
 	<div class="block">
 		<div class="title">
 			<a href="?c=Index&a=content&id=<{$article.id}>"><{$article.title}></a>
-			<span>(<{$article.addate|date_format:'%Y-%m-%d %H:%M:%S'}>)</span>
+			<span>(<{date('Y-m-d H:M:S',$article.addate)}>)</span>
 		</div>
 		<div class="content">
 			<{$article.content|truncate:200:'...'}>
@@ -148,7 +148,7 @@
 
 <!--网页底部-->
 <div class="footer">
-版权所有 2006 - 2016 北京传智播客教育科技有限公司   地址：北京市昌平区建材城西路金燕龙办公楼一层   邮编：100096<br />电话：400-618-4000   邮箱: zhanghj@itcast.cn   京ICP备08001421号   京公网安备110108007702
+版权所有 ♥ 2023
 </div><!--//网页底部-->
 </body>
 </html>
