@@ -20,4 +20,21 @@ class CategoryModel extends BaseModel
 
         return $this->pdo->fetchAll($sql);
     }
+
+    public function categoryList($arrs, $level = 0, $pid = 0)
+    {
+        static $categorys = array();
+        //循环原始的分类数组
+        foreach ($arrs as $arr) {
+            //查找下级菜单
+            if ($arr['pid'] == $pid) {
+                $arr['level'] = $level;
+                $categorys[] = $arr;
+                //递归调用
+                $this->categoryList($arrs, $level + 1, $arr['id']);
+            }
+        }
+        //返回结果
+        return $categorys;
+    }
 }

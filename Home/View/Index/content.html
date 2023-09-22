@@ -54,7 +54,7 @@
 	<div class="blogdetail">
 		<div class="title">
 			<a href="javascript:void(0)"><{$article.title}></a>
-			<span>(<{$article.addate|date_format:'%Y-%m-%d %H:%M:%S'}>)</span>
+			<span>(<{date('Y-m-d H:M:S',$article.addate)}>)</span>
 		</div>
 		<div class="content">
 			<{$article.content}>

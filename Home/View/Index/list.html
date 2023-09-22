@@ -56,7 +56,7 @@
 			<{foreach $articles as $article}>
 			<li><a href="?c=Index&a=content&id=<{$article.id}>"><{$article.title}></a><span>
 				<span class="span1">(<{$article.comment_count}>/<{$article.read}>)</span> 
-				<{$article.addate|date_format:'%Y-%m-%d %H:%M:%S'}></span></li>
+				<{date('Y-m-d H:M:S',$article.addate)}></span></li>
 			<{/foreach}>
 		</ul>
 	</div><!--//博文列表-->
